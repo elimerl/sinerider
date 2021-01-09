@@ -34,6 +34,7 @@ setInterval(() => {
     ).toFixed(1);
   } catch (error) {}
 }, 10);
+
 runEquation(mathquillToMathJS(field.latex()));
 
 function mod(n: number, m: number) {
@@ -51,6 +52,38 @@ function runEquation(equation: string) {
       compiled.evaluate({
         x: i,
         t: (((Date.now() - startTime) / 1000) * canvas.height).toFixed(1),
+      }),
+    );
+  }
+  //@ts-expect-error
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //@ts-expect-error
+  ctx.strokeStyle = 'black';
+  ctx?.beginPath();
+  ctx?.moveTo(0, canvas.width - mod(answers[0], canvas.width));
+
+  answers.forEach((ans, x) => {
+    const y = canvas.width - mod(ans, canvas.width);
+
+    ctx?.lineTo(x, y);
+    ctx?.stroke();
+    ctx?.beginPath();
+    ctx?.moveTo(x, y);
+  });
+}
+function runEquationNoTime(equation: string) {
+  startTime = Date.now();
+  if (compiledSrc !== equation) {
+    console.log('recompiling equation');
+    compiled = compile(equation);
+    compiledSrc = equation;
+  }
+  const answers = [];
+  for (let i = 0; i < canvas.height; i++) {
+    answers.push(
+      compiled.evaluate({
+        x: i,
+        t: 0,
       }),
     );
   }
