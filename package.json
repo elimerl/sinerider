@@ -1,16 +1,20 @@
 {
   "scripts": {
-    "start": "concurrently \"snowpack build --watch\" \"ts-node-dev src/server/index.ts\"",
-    "build": "snowpack build",
+    "start": "snowpack dev",
     "test": "echo \"This template does not include a test runner by default.\" && exit 1",
     "format": "prettier --write \"src/**/*.{ts,js}\"",
     "lint": "prettier --check \"src/**/*.{ts,js}\""
   },
   "dependencies": {
     "@types/express": "^4.17.9",
+    "@types/mathjs": "^6.0.9",
     "@types/matter-js": "^0.14.8",
+    "@types/toastify-js": "^1.9.1",
     "@types/vec2": "^1.6.1",
     "express": "^4.17.1",
+    "mathjs": "^8.1.1",
+    "mathquill": "^0.10.1-a",
+    "toastify-js": "^1.9.3",
     "vec2": "^1.6.1"
   },
   "devDependencies": {
