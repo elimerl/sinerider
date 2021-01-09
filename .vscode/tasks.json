@@ -6,7 +6,8 @@
       "script": "start",
       "problemMatcher": [],
       "label": "npm: start",
-      "detail": "concurrently \"snowpack build --watch\" \"ts-node-dev src/server/index.ts\""
+      "detail": "concurrently \"snowpack build --watch\" \"ts-node-dev src/server/index.ts\"",
+      "isBackground": true
     }
   ]
 }
