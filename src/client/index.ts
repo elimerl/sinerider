@@ -3,6 +3,7 @@ import { compile, EvalFunction } from 'mathjs';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
 const equationSpan = document.getElementById('equation');
+
 let compiled: EvalFunction;
 let compiledSrc: string;
 //@ts-expect-error
@@ -11,6 +12,14 @@ const field = MQ.MathField(equationSpan);
 const canvas = <HTMLCanvasElement>document.getElementById('chart');
 const ctx = canvas.getContext('2d');
 const startBtn = <HTMLButtonElement>document.getElementById('start');
+const urlBtn = <HTMLButtonElement>document.getElementById('url');
+if (window.location.hash) {
+  field.latex(window.location.hash.slice(1));
+}
+urlBtn.onclick = () => {
+  navigator.clipboard.writeText(getUrl());
+  Toastify({ text: 'Copied link!', backgroundColor: 'green' }).showToast();
+};
 let startTime = Date.now();
 startBtn.onclick = () => {
   //@ts-expect-error
@@ -22,9 +31,9 @@ startBtn.onclick = () => {
   } catch (error) {
     console.error(error);
   }
+  console.log(getUrl());
 };
 setInterval(() => {
-  if (!mathquillToMathJS(field.latex()).includes('t')) return;
   try {
     runEquation(mathquillToMathJS(field.latex()));
     //@ts-expect-error
@@ -57,49 +66,18 @@ function runEquation(equation: string) {
   }
   //@ts-expect-error
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   //@ts-expect-error
-  ctx.strokeStyle = 'black';
-  ctx?.beginPath();
-  ctx?.moveTo(0, canvas.width - mod(answers[0], canvas.width));
+  ctx.fillStyle = 'green';
 
   answers.forEach((ans, x) => {
     const y = canvas.width - mod(ans, canvas.width);
 
-    ctx?.lineTo(x, y);
-    ctx?.stroke();
-    ctx?.beginPath();
-    ctx?.moveTo(x, y);
+    ctx?.fillRect(x, y, 1, canvas.height - y);
   });
 }
-function runEquationNoTime(equation: string) {
-  startTime = Date.now();
-  if (compiledSrc !== equation) {
-    console.log('recompiling equation');
-    compiled = compile(equation);
-    compiledSrc = equation;
-  }
-  const answers = [];
-  for (let i = 0; i < canvas.height; i++) {
-    answers.push(
-      compiled.evaluate({
-        x: i,
-        t: 0,
-      }),
-    );
-  }
-  //@ts-expect-error
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //@ts-expect-error
-  ctx.strokeStyle = 'black';
-  ctx?.beginPath();
-  ctx?.moveTo(0, canvas.width - mod(answers[0], canvas.width));
-
-  answers.forEach((ans, x) => {
-    const y = canvas.width - mod(ans, canvas.width);
-
-    ctx?.lineTo(x, y);
-    ctx?.stroke();
-    ctx?.beginPath();
-    ctx?.moveTo(x, y);
-  });
+function getUrl() {
+  const url = new URL(window.location.href);
+  url.hash = field.latex();
+  return url.href;
 }
