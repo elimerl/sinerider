@@ -149,6 +149,11 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
+"@types/ccapture.js@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/ccapture.js/-/ccapture.js-1.1.0.tgz#f045f869ff7200d87417e804609589f462c8e5e9"
+  integrity sha512-g1IHWIVtXKgr9CmfJSa62gs1cvCTF+0Uz5JXDtT/nvmNU2KLucwda22ywUBFTYYUGsw+TYQRcXxcTnAQttQVcA==
+
 "@types/cheerio@0.22.22":
   version "0.22.22"
   resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.22.tgz#ae71cf4ca59b8bbaf34c99af7a5d6c8894988f5f"
@@ -496,6 +501,11 @@ camelcase@^5.0.0:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
+
+ccapture.js@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ccapture.js/-/ccapture.js-1.1.0.tgz#ac4030e8b43847e305242d784abf284d2313beff"
+  integrity sha512-28kiHJzFsZ6b0OTfKpWpEwK2n/LTAgytK1uzB+413dzjHltdh2hP5Yg2qR0+9Xw3XoBMz5UkGCh8Ektr2rVlmw==
 
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"

@@ -2,6 +2,7 @@ import { mathquillToMathJS } from './preprocessMathQuill';
 import { chain, compile, cos, EvalFunction } from 'mathjs';
 import Toastify from 'toastify-js';
 import 'toastify-js/src/toastify.css';
+
 const equationSpan = document.getElementById('equation');
 const equationStaticSpan = document.getElementById('equation-static');
 
@@ -22,6 +23,22 @@ if (localStorage.getItem('equation')) {
 }
 //@ts-expect-error
 document.getElementById('start').onclick = toggle;
+
+function newFile(data: Blob, fileName: string) {
+  var json = JSON.stringify(data);
+  //IE11 support
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    let blob = new Blob([json], { type: 'application/json' });
+    window.navigator.msSaveOrOpenBlob(blob, fileName);
+  } else {
+    // other browsers
+    let file = new File([json], fileName, { type: 'application/json' });
+    let exportUrl = URL.createObjectURL(file);
+    window.location.assign(exportUrl);
+    URL.revokeObjectURL(exportUrl);
+  }
+}
+
 preview();
 function preview() {
   let compiled: EvalFunction;
