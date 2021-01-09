@@ -1,7 +1,5 @@
 import { mathquillToMathJS } from './preprocessMathQuill';
-import { chain, compile, cos, EvalFunction } from 'mathjs';
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
+import { compile, EvalFunction } from 'mathjs';
 
 const equationSpan = document.getElementById('equation');
 const equationStaticSpan = document.getElementById('equation-static');
@@ -55,7 +53,12 @@ function preview() {
 function render(compiled: EvalFunction, t = 0) {
   const vertices = [];
   //@ts-expect-error
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'white';
+  ctx?.fillRect(0, 0, canvas.width, canvas.height);
+  //@ts-expect-error
+
+  ctx.fillStyle = 'black';
+
   for (let x = -(canvas.width / 2); x < canvas.width / 2; x++) {
     try {
       const y = mod(
