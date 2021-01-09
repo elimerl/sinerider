@@ -1,6 +1,5 @@
 {
   "imports": {
-    "mathjs": "./mathjs.js",
-    "toastify-js/src/toastify.css": "./toastify-js/src/toastify.css"
+    "mathjs": "./mathjs.js"
   }
 }

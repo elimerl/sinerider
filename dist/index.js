@@ -1,6 +1,5 @@
 import {mathquillToMathJS} from "./preprocessMathQuill.js";
 import {compile} from "../web_modules/mathjs.js";
-import "../web_modules/toastify-js/src/toastify.css.proxy.js";
 const equationSpan = document.getElementById("equation");
 const equationStaticSpan = document.getElementById("equation-static");
 const canvas = document.getElementById("chart");
@@ -18,6 +17,18 @@ if (localStorage.getItem("equation")) {
   field.latex(localStorage.getItem("equation"));
 }
 document.getElementById("start").onclick = toggle;
+function newFile(data, fileName) {
+  var json = JSON.stringify(data);
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    let blob = new Blob([json], {type: "application/json"});
+    window.navigator.msSaveOrOpenBlob(blob, fileName);
+  } else {
+    let file = new File([json], fileName, {type: "application/json"});
+    let exportUrl = URL.createObjectURL(file);
+    window.location.assign(exportUrl);
+    URL.revokeObjectURL(exportUrl);
+  }
+}
 preview();
 function preview() {
   let compiled;
@@ -33,7 +44,9 @@ function preview() {
 }
 function render(compiled, t = 0) {
   const vertices = [];
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "white";
+  ctx?.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "black";
   for (let x = -(canvas.width / 2); x < canvas.width / 2; x++) {
     try {
       const y = mod(canvas.height - compiled.evaluate({
