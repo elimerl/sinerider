@@ -48,7 +48,10 @@ function runEquation(equation: string) {
   const answers = [];
   for (let i = 0; i < canvas.height; i++) {
     answers.push(
-      compiled.evaluate({ x: i, t: (Date.now() - startTime) / 1000 }),
+      compiled.evaluate({
+        x: i,
+        t: (((Date.now() - startTime) / 1000) * canvas.height).toFixed(1),
+      }),
     );
   }
   //@ts-expect-error
